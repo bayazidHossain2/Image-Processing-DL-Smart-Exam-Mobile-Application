@@ -10,37 +10,38 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartexam.Model.AnswerModel;
+import com.example.smartexam.Model.ResultModel;
 import com.example.smartexam.R;
 
 import java.util.ArrayList;
 
-public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.viewHolder> {
-
+public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.viewHolder>{
     Context context;
-    ArrayList<AnswerModel> list;
+    ArrayList<ResultModel> list;
 
-    public AnswerAdapter(Context context, ArrayList<AnswerModel> list) {
+    public ResultAdapter(Context context, ArrayList<ResultModel> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void add(AnswerModel model){
+    public void add(ResultModel model){
         list.add(model);
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.simple_answer_design,parent,false);
-        return new viewHolder(view);
+    public ResultAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.
+                simple_answer_design,parent,false);
+        return new ResultAdapter.viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        AnswerModel model = list.get(position);
-        holder.id.setText("Question "+String.valueOf(model.getQuestion_no())+" : ");
-        holder.option.setText("   ( "+model.getOption()+" )");
+    public void onBindViewHolder(@NonNull ResultAdapter.viewHolder holder, int position) {
+        ResultModel model = list.get(position);
+        holder.id.setText("Roll "+String.valueOf(model.getRoll())+" : ");
+        holder.option.setText("    "+model.getTotalMatch()+" ");
     }
 
     @Override

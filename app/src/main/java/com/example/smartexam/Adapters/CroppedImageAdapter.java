@@ -37,6 +37,7 @@ public class CroppedImageAdapter extends RecyclerView.Adapter<CroppedImageAdapte
         Option_Image model = list.get(position);
         holder.id.setText(model.getNumber());
         holder.image.setImageBitmap(model.getBitmap());
+        holder.predict.setText(""+model.getPrediction());
     }
 
     @Override
@@ -45,12 +46,13 @@ public class CroppedImageAdapter extends RecyclerView.Adapter<CroppedImageAdapte
     }
 
     class viewHolder extends RecyclerView.ViewHolder{
-        TextView id;
+        TextView id,predict;
         ImageView image;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.tv_answer_paper_option);
             image = itemView.findViewById(R.id.iv_answer_paper_option);
+            predict = itemView.findViewById(R.id.tv_prediction);
         }
     }
 }

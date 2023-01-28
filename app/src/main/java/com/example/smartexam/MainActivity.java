@@ -28,10 +28,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        showResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ResultShowActivity.class);
+                startActivity(intent);
+            }
+        });
         makeResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,MakeResultActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        showAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnswerShowActivity.class);
                 startActivity(intent);
             }
         });

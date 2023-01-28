@@ -28,7 +28,7 @@
         android:layout_marginTop="50dp"
         android:text="Answer for Question No 1 :"
         android:textColor="@color/blue_800"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -37,7 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_question_no"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_question_no"
         app:layout_constraintTop_toTopOf="@+id/tv_question_no" />
 
@@ -48,8 +50,6 @@
         android:layout_marginTop="20dp"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="@+id/spinner"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -69,8 +69,6 @@
         android:layout_marginTop="8dp"
         android:text="Finish"
         app:layout_constraintEnd_toEndOf="@+id/btn_add"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/btn_add"
         app:layout_constraintTop_toBottomOf="@+id/btn_add" />
 
     <TextView
@@ -80,12 +78,12 @@
         android:layout_marginBottom="8dp"
         android:text="Set Exam name: "
         android:textColor="@color/blue_800"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_exam_name"
         app:layout_constraintStart_toStartOf="@+id/tv_question_no" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/et_exam_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
@@ -99,5 +97,19 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_add"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/btn_finish" />
+
+    <TextView
+        android:id="@+id/tv_answer_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/erroe_bg"
+        android:padding="5dp"
+        android:text="You must set a unique exam name."
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_exam_name"
+        app:layout_constraintStart_toStartOf="@+id/et_exam_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_exam_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

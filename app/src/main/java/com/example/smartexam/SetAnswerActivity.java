@@ -1,5 +1,8 @@
 package com.example.smartexam;
 
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,24 +14,29 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartexam.Adapters.AnswerAdapter;
 import com.example.smartexam.Model.AnswerModel;
+import com.example.smartexam.Model.AnswerSetModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SetAnswerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner options;
-    TextView question;
-    Button add;
+    TextView question,errorMsg;
+    Button add,finish;
     String option="";
     RecyclerView seted_answer;
+    EditText examName;
     ArrayList<AnswerModel> answerModels;
     int question_no=1;
+    int minId=Integer.MAX_VALUE,maxId=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +46,13 @@ public class SetAnswerActivity extends AppCompatActivity implements AdapterView.
         options = findViewById(R.id.spinner);
         seted_answer = findViewById(R.id.rv_answer);
         add = findViewById(R.id.btn_add);
+        finish = findViewById(R.id.btn_finish);
+        errorMsg = findViewById(R.id.tv_answer_error);
+        examName = findViewById(R.id.et_exam_name);
+
         answerModels = new ArrayList<>();
+
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(SetAnswerActivity.this);
 
         AnswerAdapter ansAdapter = new AnswerAdapter(SetAnswerActivity.this,answerModels);
         seted_answer.setAdapter(ansAdapter);
@@ -58,9 +72,33 @@ public class SetAnswerActivity extends AppCompatActivity implements AdapterView.
                     Toast.makeText(SetAnswerActivity.this, "Please Select a Option", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ansAdapter.add(new AnswerModel(question_no,option));
+                String uid = String.valueOf(new Date().getTime());
+                AnswerModel model = new AnswerModel(0,uid,question_no,option);
+                int id = dbHelper.insertAnswer(model);
+                minId = min(minId,id);
+                maxId = max(maxId,id);
+                ansAdapter.add(model);
                 question_no++;
                 question.setText("Answer for Question No "+String.valueOf(question_no)+" :");
+            }
+        });
+
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(examName.getText().toString().equals("")){
+                    errorMsg.setText("You must set a unique exam name.");
+                    errorMsg.setVisibility(View.VISIBLE);
+                    return;
+                }
+                if(dbHelper.isExist(examName.getText().toString())){
+                    errorMsg.setText("This exam name already exist. You must set a unique exam name.");
+                    errorMsg.setVisibility(View.VISIBLE);
+                    return;
+                }
+                dbHelper.insertAnswerSet(new AnswerSetModel(examName.getText().toString(),
+                        minId,maxId));
+                finish();
             }
         });
     }

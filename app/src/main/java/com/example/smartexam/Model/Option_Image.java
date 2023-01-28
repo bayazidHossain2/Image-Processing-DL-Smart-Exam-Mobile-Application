@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 public class Option_Image {
     String number;
     Bitmap bitmap;
+    String prediction;
 
-    public Option_Image(String number, Bitmap bitmap) {
+    public Option_Image(String number, Bitmap bitmap, String prediction) {
         this.number = number;
         this.bitmap = bitmap;
+        this.prediction = prediction;
     }
 
     public String getNumber() {
@@ -25,5 +27,13 @@ public class Option_Image {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+    }
+
+    public String getPrediction() {
+        return prediction;
+    }
+
+    public void setPrediction(String prediction) {
+        this.prediction = prediction;
     }
 }
